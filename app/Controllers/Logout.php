@@ -11,10 +11,10 @@ class Logout extends BaseController
         $session = \Config\Services::session();
         $session->remove('id');
         $session->remove('name');
+        $session->remove('role');
         $session->remove('loggedIn');
 
         $session->setFlashdata('success', 'Successfully logout!');
-
         return redirect()->to('/login');
     }
 }

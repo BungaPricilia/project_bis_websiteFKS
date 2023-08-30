@@ -4,9 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ProductModel;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 
 class Admin extends BaseController
 {
@@ -19,8 +16,9 @@ class Admin extends BaseController
         $this->session = \Config\Services::session();
         $this->session->start();
 
+        // Inisialisasi sesi produk jika belum ada
         if (!$this->session->get('products')) {
-            $this->session->set('products');
+            $this->session->set('products', []);
         }
     }
 
@@ -31,7 +29,7 @@ class Admin extends BaseController
         if ($keyword) {
             $product = $this->productModel->search($keyword);
         } else {
-            $product = $this->productModel;
+            $product = $this->productModel->orderBy('id', 'DESC');
         }
 
         $data = [
@@ -39,9 +37,13 @@ class Admin extends BaseController
             'product' => $product->paginate(50, 'products'),
             'pager' => $this->productModel->pager
         ];
-
-
-        return view('product/index', $data);
+        
+        $userRoleId = $this->session->get('role');
+        if ($userRoleId == 1) {
+            return view('product/index', $data);
+        } else {
+            return view('productadmin/index', $data);
+        }
     }
 
     /**
@@ -66,7 +68,12 @@ class Admin extends BaseController
             'tittle' => "Add Data"
         ];
 
-        return view('product/new', $data);
+        $userRoleId = $this->session->get('role');
+        if ($userRoleId == 1) {
+            return view('product/new', $data);
+        } else {
+            return view('productadmin/new', $data);
+        }
     }
 
     /**
@@ -134,9 +141,10 @@ class Admin extends BaseController
             "invoice" => $this->request->getPost('invoice'),
             "quantity" => $this->request->getPost('quantity'),
             "price" => $this->request->getPost('price'),
+            "totalprice" => $this->request->getPost('totalprice'),
         ];
         $this->productModel->insert($data);
-        session()->setFlashdata('success', 'Data Berhasil diupload');
+        session()->setFlashdata('success', 'Data Berhasil di-upload');
         return redirect()->to('/Admin/Tabel');
     }
 
@@ -153,7 +161,12 @@ class Admin extends BaseController
             'tittle' => "Edit Data",
             'Admin' => $this->productModel->getProductData($id)
         ];
-        echo view('product/edit', $data);
+        $userRoleId = $this->session->get('role');
+        if ($userRoleId == 1) {
+            return view('product/edit', $data);
+        } else {
+            return view('productadmin/edit', $data);
+        }
 
     }
 
@@ -172,9 +185,10 @@ class Admin extends BaseController
             "invoice" => $this->request->getPost('invoice'),
             "quantity" => $this->request->getPost('quantity'),
             "price" => $this->request->getPost('price'),
+            "totalprice" => $this->request->getPost('totalprice'),
         ];
         $this->productModel->update($id, $data);
-
+        session()->setFlashdata('success', 'Data Berhasil di-update');
         return redirect()->to('/Admin/Tabel');
     }
 
@@ -203,12 +217,13 @@ class Admin extends BaseController
             $file,
             array(
                 'SubdistID',
-                'CustomerName',
+                'Customer Name',
                 'Alamat',
-                'ProductName',
-                'InvoiceDate',
+                'Product Name',
+                'Invoice Date',
                 'Quantity',
-                'UnitPrice'
+                'Unit Price',
+                'Total Price'
             )
         ); // Menulis header kolom
 
@@ -217,7 +232,7 @@ class Admin extends BaseController
                 $file,
                 array(
                     $row['subdistid'], $row['customer'], $row['alamat'], $row['product'], 
-                    $row['invoice'], $row['quantity'], $row['price'],  
+                    $row['invoice'], $row['quantity'], $row['price'], $row['totalprice']
                 )
             ); // Menulis data
         }

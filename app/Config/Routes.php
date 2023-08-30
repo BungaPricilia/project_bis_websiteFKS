@@ -44,7 +44,6 @@ $routes->group('/', ['filter' => 'authMiddleware'], function ($routes) {
     $routes->resource('userdata');
     
     $routes->get('/export', 'Admin::exportToCSV');
-    $routes->get('/viewpdf', 'Admin::viewpdf');
     
 });
 

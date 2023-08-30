@@ -1,4 +1,4 @@
-<?= $this->extend('base/baseAdmin') ?>
+<?= $this->extend('base/baseSuperAdmin') ?>
 <?= $this->section('content') ?>
 
 <style>
@@ -19,6 +19,12 @@
       </ol>
       </nav>
     </div><!-- End Page Title -->
+
+    <?php if (!empty(session()->getFlashdata('success'))): ?>
+      <div class="alert alert-success" role="alert">
+        <?php echo session()->getFlashdata('success'); ?>
+      </div>
+    <?php endif; ?>
 
     <section class="section dashboard">
       <div class="row">

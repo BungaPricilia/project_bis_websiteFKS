@@ -7,9 +7,13 @@ use App\Models\ProductModel;
 class Home extends BaseController
 {
     protected $productModel;
+    protected $session;
+
+
     public function __construct()
     {
         $this->productModel = new ProductModel();
+        $this->session = \Config\Services::session(); // Tambahkan ini
     }
     public function index()
     {
@@ -38,7 +42,7 @@ class Home extends BaseController
             $totalPrice = 0; // Inisialisasi total quantity dengan nilai 0
         
             foreach ($products1 as $product1) {
-                $totalPrice += $product1['price']; // Menambahkan nilai quantity ke total quantity
+                $totalPrice += $product1['totalprice']; // Menambahkan nilai quantity ke total quantity
             }
 
             //untuk memfilter perbulan
@@ -52,6 +56,12 @@ class Home extends BaseController
             'totalPrice' => $totalPrice,
         ];
 
-        return view('home', $data);
+        $userRoleId = $this->session->get('role');
+        
+        if ($userRoleId == 2) {
+            return view('homeadmin', $data);
+        } else {
+            return view('home', $data);
+        }
     }
 }

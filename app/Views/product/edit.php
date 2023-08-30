@@ -1,6 +1,6 @@
-<?= $this->extend('base/baseAdmin') ?>
-
+<?= $this->extend('base/baseSuperAdmin') ?>
 <?= $this->section('content') ?>
+
 <div class="container-fluid py-4">
 
     <div class="pagetitle">
@@ -19,17 +19,27 @@
 
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Edit Data Form</h5>
+            <a href="javascript:history.back()" class="btn btn-primary" type="button">Back</a>
+            
+              <h5 class="row justify-content-center ">Edit Data Form</h5>
+              <br>
 
               <!-- Multi Columns Form -->
+              <?php if (!empty(session()->getFlashdata('error'))): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <h4>Periksa Entrian Form</h4>
+                                </hr />
+                                <?php echo session()->getFlashdata('error'); ?>
+                            </div>
+                        <?php endif; ?>
                         
               <form method="post" action="<?= base_url(); ?>/Admin/update/<?= $Admin['id'] ?>"
                             enctype="multipart/form-data">
 
                <?= csrf_field(); ?>
 
-                    <div class="row">
-                        <div class="form-group col-5">
+                   <div class="row  row justify-content-center">
+                        <div class="form-group col-3">
                             <div class="mb-3">
                                 <label for="subdistid" class="form-label">subdistid</label>
                                 <input type="text" class="form-control" id="subdistid" name="subdistid"
@@ -45,22 +55,28 @@
                             </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 row justify-content-center">
+                    <div class="form-group col-10">
                         <label for="alamat" class="form-label">alamat</label>
                         <input type="text" class="form-control" id="alamat"
                         name="alamat" value="<?= $Admin['alamat']; ?>" style="height: 55px; vertical-align: top;">
                     </div>
+                    </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3  row justify-content-center">
+                    <div class="form-group col-10">
                         <label for="product" class="form-label">product</label>
                         <input type="text" class="form-control" id="product"
                         name="product" value="<?= $Admin['product']; ?>" style="height: 55px; vertical-align: top;">
                     </div>
+                    </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 row justify-content-center">
+                    <div class="form-group col-10">
                         <label for="invoice" class="form-label">Tanggal invoice</label>
                         <input type="date" class="form-control" id="invoice" name="invoice"
                             value="<?= $Admin['invoice']; ?>" style="height: 50px;">
+                    </div>
                     </div>
 
                     <div class="row justify-content-center">
@@ -78,7 +94,16 @@
                                     value="<?= $Admin['price']; ?>" style="height: 55px; vertical-align: top;">
                             </div>
                             </div>
+                            <div class="form-group col-5">
+                                <div class="mb-3">
+                                    <label for="totalprice" class="form-label">Total Harga</label>
+                                    <input type="text" class="form-control" id="totalprice" name="totalprice"
+                                        value="<?= $Admin['totalprice']; ?>" style="height: 55px; vertical-align: top;" readonly>
+                                </div>
+                            </div>
                     </div>
+
+
 
 
                 <div class="text-center">

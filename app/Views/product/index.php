@@ -1,4 +1,4 @@
-<?= $this->extend('base/baseAdmin') ?>
+<?= $this->extend('base/baseSuperAdmin') ?>
 <?= $this->section('content') ?>
 <div class="container-fluid py-4">
 
@@ -48,8 +48,8 @@
                         </div>
                     <?php endif; ?>
               
-              <table class="table">
-              <tbody>
+              <table class="table table-responsive table-borderless dataTable ">
+              <thead>
                   <tr>
                   <th scope="col ">ID</th>
                   <th scope="col ">Subdistid</th>
@@ -58,9 +58,12 @@
                   <th scope="col ">Product</th>
                   <th scope="col ">Invoice</th>
                   <th scope="col ">Quantity</th>
-                  <th scope="col ">Price</th>
+                  <th scope="col ">Unit Price</th>
+                  <th scope="col ">Total Price</th>
                   <th scope="col ">Action</th>
                   </tr>
+                  </thead>
+                  <tbody>
                   <?php
                   $i = 1;
                   foreach ($product as $item):?>
@@ -73,6 +76,7 @@
                       <td><?php echo date('d/m/Y', strtotime($item['invoice']))?></td>
                       <td><?= $item['quantity'] ?></td>
                       <td><?php echo "Rp. ".number_format($item['price']) ?></td>
+                      <td><?php echo "Rp. ".number_format($item['totalprice']) ?></td>
                       <td>
                           <div class="btn-group " role="group " aria-label="Basic example ">
                               <form action="/Admin/<?= $item['id'] ?>" method="POST" onsubmit="return confirm(`Are you sure?`)">

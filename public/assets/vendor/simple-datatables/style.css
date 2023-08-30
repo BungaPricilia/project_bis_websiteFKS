@@ -146,7 +146,8 @@
 	height: 0;
 	width: 0;
 	position: absolute;
-	right: 4px;
+    left: -20px;
+	/* right: 10px; */
 	border-left: 4px solid transparent;
 	border-right: 4px solid transparent;
 	opacity: 0.2;
@@ -174,7 +175,8 @@
 .datatable-filter::before {
     content: "";
     position: absolute;
-    right: 4px;
+    left: -20px;
+	/* right: 10px; */
     opacity: 0.2;
     width: 0;
     height: 0;

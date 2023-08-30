@@ -18,6 +18,10 @@ class CreateUserTable extends Migration
                 "type" => "VARCHAR",
                 "constraint" => "200",
             ],
+            "role" => [
+                "type" => "int",
+                "null" => true,
+            ],
             "username" => [
                 "type" => "VARCHAR",
                 "constraint" => "200",

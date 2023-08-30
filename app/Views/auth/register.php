@@ -23,9 +23,12 @@
           <div class="row">
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
               <div class="card card-plain">
-
               
               <div class="card-header pb-0 text-start">
+
+               <!-- Tambahkan baris ini untuk tombol "Back" -->
+               <a href="javascript:history.back()" class="back-button"><span>&#8592;</span> Back</a>
+
                 <div class="logo d-flex align-items-center w-auto justify-content-center py-3">
                   <img src="/assets/img/FKS_logo.jpg" alt="logo">
                 </div><!-- End Logo -->
@@ -50,17 +53,28 @@
 
               <form action="/register" method="post">
                    <div class="mb-3">
-                      <input type="text" name="name" id="name" class="form-control form-control-lg" placeholder="Name" aria-label="name" required>
+                      <input type="text" name="name" id="name" class="form-control form-control-lg" placeholder="Isi Nama" aria-label="name" required>
                       <div class="invalid-feedback">Silahkan isi nama Anda.</div>
                     </div>
                     <br>
                     <div class="mb-3">
-                      <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="Username" aria-label="username" required>
+                      <select class="form-control form-control-lg" id="role" name="role" value="<?= old('role'); ?>" laceholder="Pilih Role" aria-label="role" required> 
+                        <option value="-">--Pilih Role--</option>
+                        <option value="1">1. Super Admin</option>
+                        <option value="2">2. Admin</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        please fill in your role
+                      </div>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                      <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="Isi Username" aria-label="username" required>
                       <div class="invalid-feedback">Silahkan isi username Anda.</div>
                     </div>
                     <br>
                     <div class="mb-3">
-                      <input type="password" name="password" id="password" class="form-control pwstrength form-control-lg" placeholder="Password" 
+                      <input type="password" name="password" id="password" class="form-control pwstrength form-control-lg" placeholder=" Isi Password" 
                       data-indicator="pwindicator"  aria-label="password" required>
                       <div class="invalid-feedback">Silahkan isi password Anda!</div>
                       <div id="pwindicator" class="pwindicator">
@@ -86,7 +100,7 @@
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
               <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" 
-              style="background-color: #9683CA">
+              style="background-color: #DDA0DD">
                 <span class="mask bg-gradient-primary opacity-6"></span>
                 <h1 class="mt-5 text-white font-weight-bolder position-relative">"Welcome to Website"</h1>
                 <h4 class="text-white position-relative">DiMS FKS Food</h4>

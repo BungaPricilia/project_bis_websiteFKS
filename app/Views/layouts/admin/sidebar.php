@@ -55,8 +55,7 @@
           </div>
         </div>
       </div>
-      <a class="btn btn-primary btn-sm w-100 mb-3" href="/register" type="button">Register</a>
-      <a href="/logout" target="_blank" class="btn btn-dark btn-sm mb-0 w-100">Logout</a>
+      <a href="/logout" class="btn btn-dark btn-sm mb-0 w-100">Logout</a>
 <br>
     </div>
 

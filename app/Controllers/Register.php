@@ -56,6 +56,7 @@ class Register extends ResourceController
     {
         $validate = $this->validate([
             'name' => 'required',
+            'role' => 'required',
             'username' => 'required|is_unique[users.username]',
             'password' => 'required|min_length[6]',
             'password2' => 'required|matches[password]'
@@ -66,6 +67,7 @@ class Register extends ResourceController
         }
 
         $data = [
+            "role" => $this->request->getPost('role'),
             "name" => $this->request->getPost('name'),
             "username" => $this->request->getPost('username'),
             "password" => md5($this->request->getPost('password')),

@@ -14,7 +14,7 @@ class ProductModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['subdistid', 'customer', 'alamat', 'product', 'invoice', 'quantity', 'price']; //Wajib diisi
+    protected $allowedFields    = ['subdistid', 'customer', 'alamat', 'product', 'invoice', 'quantity', 'price', 'totalprice']; //Wajib diisi
 
     // Dates
     protected $useTimestamps = false;
@@ -60,7 +60,7 @@ class ProductModel extends Model
     public function search($keyword)
     {
         return $this->table('products')->like('customer', $keyword)->
-            orLike('product', $keyword);
+        orlike('alamat', $keyword)-> orLike('product', $keyword);
     }
 
     public function getPDFData()
